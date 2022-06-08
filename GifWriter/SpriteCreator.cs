@@ -68,9 +68,7 @@ namespace GifWriter
             {
                 for(int j = 0; j < _bitmap.Width; j++)
                 {
-                    //Console.WriteLine(_bitmap.GetPixel(j, i));
                     _bitmap.SetPixel(j, i, SmoothColor(_bitmap.GetPixel(j, i)));
-                    //Console.WriteLine(_bitmap.GetPixel(j, i));
                 }
             }
             Image currImage = _bitmap;

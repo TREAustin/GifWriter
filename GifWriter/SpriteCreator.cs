@@ -64,12 +64,29 @@ namespace GifWriter
         //Converts image to byte[] so it can be stored in the list of byte[]
         public byte[] ConvertToByteArray(Bitmap _bitmap)
         {
-            //Store Bitmap as Image.
+            for(int i = 0; i < _bitmap.Height; i++)
+            {
+                for(int j = 0; j < _bitmap.Width; j++)
+                {
+                    //Console.WriteLine(_bitmap.GetPixel(j, i));
+                    _bitmap.SetPixel(j, i, SmoothColor(_bitmap.GetPixel(j, i)));
+                    //Console.WriteLine(_bitmap.GetPixel(j, i));
+                }
+            }
             Image currImage = _bitmap;
             //ImageConverter object to help convert Image to byte array.
             ImageConverter converter = new ImageConverter();
+            byte[] temp = converter.ConvertTo(currImage, typeof(byte[])) as byte[];
             //Returns byte array of the ImageConverter object.
             return converter.ConvertTo(currImage,typeof(byte[])) as byte[];
+        }
+
+        private Color SmoothColor(Color pixel)
+        {
+            int R = ((int)pixel.R / 15) * 15;
+            int G = ((int)pixel.G / 15) * 15;
+            int B = ((int)pixel.B / 15) * 15;
+            return Color.FromArgb(255, (byte)R, (byte)G, (byte)B);
         }
     }
 }
